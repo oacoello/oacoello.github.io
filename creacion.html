@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creación — Oscar Coello</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --marigold: #E59D2C;
+            --buff: #F3D58D;
+            --pearl: #EBDDC5;
+            --police-blue: #2E4365;
+            --citrine: #8A3B08;
+            --ink: #1a1208;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--police-blue);
+            color: var(--pearl);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2.5rem;
+            background: var(--police-blue);
+            border-bottom: 2px solid rgba(235,221,197,0.3);
+        }
+        .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            color: var(--buff);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--buff);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { opacity: 1; }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--marigold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .page-header {
+            padding-top: 72px;
+            border-bottom: 2px solid rgba(235,221,197,0.2);
+        }
+        .page-header-inner {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: end;
+            padding: 4rem 3rem 2rem;
+            gap: 2rem;
+        }
+        .page-number {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--buff);
+            opacity: 0.6;
+            padding-bottom: 6px;
+        }
+        .page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--pearl);
+            display: inline-block;
+        }
+        .page-desc {
+            padding: 0 3rem 2.5rem;
+            font-size: 0.72rem;
+            line-height: 1.9;
+            color: var(--buff);
+            opacity: 0.6;
+            max-width: 520px;
+        }
+
+        .music-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-bottom: 2px solid rgba(235,221,197,0.15);
+        }
+        .music-featured {
+            padding: 3rem;
+            border-right: 1px solid rgba(235,221,197,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .music-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--buff);
+            opacity: 0.6;
+        }
+        .music-card {
+            background: rgba(235,221,197,0.06);
+            border: 1px solid rgba(235,221,197,0.15);
+            border-radius: 2px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .music-card:hover { background: rgba(235,221,197,0.12); }
+        .music-cover {
+            width: 64px; height: 64px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(235,221,197,0.25);
+        }
+        .music-info { flex: 1; }
+        .music-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--pearl);
+            margin-bottom: 0.25rem;
+        }
+        .music-meta {
+            font-size: 0.65rem;
+            color: var(--buff);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+        .play-btn {
+            width: 36px; height: 36px;
+            border: 1px solid var(--marigold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--marigold);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .play-btn:hover { background: var(--marigold); color: var(--police-blue); }
+        .music-visual {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .waveform {
+            display: flex;
+            gap: 3px;
+            align-items: center;
+            height: 80px;
+        }
+        .wave-bar {
+            width: 4px;
+            background: var(--marigold);
+            border-radius: 2px;
+            animation: wave 1.4s ease-in-out infinite;
+            opacity: 0.7;
+        }
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
+        footer {
+            background: rgba(0,0,0,0.3);
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 2rem;
+            border-top: 2px solid rgba(235,221,197,0.15);
+        }
+        .footer-name { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--pearl); }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-links a { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--buff); text-decoration: none; opacity: 0.5; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-copy { grid-column: 1; font-size: 0.6rem; color: var(--buff); opacity: 0.3; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 1rem; }
+
+        @media (max-width: 768px) {
+            .music-layout { grid-template-columns: 1fr; }
+            .page-title { font-size: 3rem; }
+            .nav-links { display: none; }
+            footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a class="nav-logo" href="index.html">OC</a>
+        <ul class="nav-links">
+            <li><a href="laboratorio.html">Laboratorio</a></li>
+            <li><a href="creacion.html" class="active">Creación</a></li>
+            <li><a href="canvas.html">Canvas</a></li>
+            <li><a href="diario.html">Diario</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <span class="page-number">02 / Creación</span>
+            <h1 class="page-title">
+                Creación
+                <svg viewBox="0 0 240 16" fill="none" height="12" style="display:block;width:100%;margin-top:-4px;">
+                    <path d="M2 10 C40 4, 90 14, 140 8 C190 2, 220 10, 238 7" stroke="#F3D58D" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </h1>
+        </div>
+        <p class="page-desc">Música producida de forma independiente. La ingeniería como instrumento.</p>
+    </header>
+
+    <main>
+        <div class="music-layout">
+            <div class="music-featured">
+                <span class="music-label">Proyectos musicales</span>
+
+                <div class="music-card">
+                    <div class="music-cover">
+                        <svg viewBox="0 0 64 64" width="40" fill="none">
+                            <path d="M32 10 C32 10, 44 16, 50 30 C56 44, 44 56, 32 54 C20 52, 12 42, 16 30 C20 18, 32 10, 32 10Z"
+                                stroke="#F3D58D" stroke-width="1.5" fill="none" />
+                            <circle cx="32" cy="32" r="6" stroke="#E59D2C" stroke-width="1.5" fill="none" />
+                            <path d="M32 10 L32 26 M32 38 L32 54" stroke="#F3D58D" stroke-width="1" opacity="0.5" />
+                        </svg>
+                    </div>
+                    <div class="music-info">
+                        <div class="music-title">EP Original</div>
+                        <div class="music-meta">Producción independiente · 2024</div>
+                    </div>
+                    <div class="play-btn">▶</div>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-cover">
+                        <svg viewBox="0 0 64 64" width="40" fill="none">
+                            <rect x="16" y="16" width="32" height="32" rx="2" stroke="#F3D58D" stroke-width="1.5" fill="none" />
+                            <path d="M24 32 L30 26 L36 32 L30 38Z" stroke="#E59D2C" stroke-width="1.5" fill="none" />
+                        </svg>
+                    </div>
+                    <div class="music-info">
+                        <div class="music-title">Ambient Sessions</div>
+                        <div class="music-meta">Experimental · Ongoing</div>
+                    </div>
+                    <div class="play-btn">▶</div>
+                </div>
+
+                <div class="music-card">
+                    <div class="music-cover">
+                        <svg viewBox="0 0 64 64" width="40" fill="none">
+                            <path d="M20 48 L20 24 M28 48 L28 18 M36 48 L36 28 M44 48 L44 22" stroke="#E59D2C" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    <div class="music-info">
+                        <div class="music-title">Beats & Loops</div>
+                        <div class="music-meta">Producción · Colección</div>
+                    </div>
+                    <div class="play-btn">▶</div>
+                </div>
+            </div>
+
+            <div class="music-visual">
+                <div class="waveform" id="waveform"></div>
+                <p style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.2em; color:var(--buff); opacity:0.5; margin-top:2rem; text-align:center;">Música generada desde la ingeniería</p>
+                <svg viewBox="0 0 280 80" fill="none" width="280" style="margin-top:2rem;opacity:0.25">
+                    <line x1="10" y1="20" x2="270" y2="20" stroke="#F3D58D" stroke-width="0.8" />
+                    <line x1="10" y1="35" x2="270" y2="35" stroke="#F3D58D" stroke-width="0.8" />
+                    <line x1="10" y1="50" x2="270" y2="50" stroke="#F3D58D" stroke-width="0.8" />
+                    <line x1="10" y1="65" x2="270" y2="65" stroke="#F3D58D" stroke-width="0.8" />
+                    <ellipse cx="50" cy="50" rx="7" ry="5" fill="#F3D58D" />
+                    <line x1="57" y1="50" x2="57" y2="20" stroke="#F3D58D" stroke-width="1" />
+                    <ellipse cx="90" cy="35" rx="7" ry="5" fill="#F3D58D" />
+                    <line x1="97" y1="35" x2="97" y2="8" stroke="#F3D58D" stroke-width="1" />
+                    <ellipse cx="130" cy="65" rx="7" ry="5" fill="#F3D58D" />
+                    <line x1="137" y1="65" x2="137" y2="35" stroke="#F3D58D" stroke-width="1" />
+                    <ellipse cx="170" cy="20" rx="7" ry="5" fill="#F3D58D" />
+                    <line x1="177" y1="20" x2="177" y2="-8" stroke="#F3D58D" stroke-width="1" />
+                    <ellipse cx="210" cy="50" rx="7" ry="5" fill="#F3D58D" />
+                    <line x1="217" y1="50" x2="217" y2="20" stroke="#F3D58D" stroke-width="1" />
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <div class="footer-name">Oscar Coello</div>
+            <div class="footer-copy">© 2025 · oacoello.me</div>
+        </div>
+        <ul class="footer-links">
+            <li><a href="https://oacoello.me">Web</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Spotify</a></li>
+        </ul>
+    </footer>
+
+    <script>
+        const wf = document.getElementById('waveform');
+        const heights = [30,60,80,100,70,90,50,75,40,85,60,35,95,55,70];
+        heights.forEach((h, i) => {
+            const bar = document.createElement('div');
+            bar.className = 'wave-bar';
+            bar.style.height = h + '%';
+            bar.style.animationDelay = `${i * 0.1}s`;
+            bar.style.animationDuration = `${1.2 + Math.random() * 0.8}s`;
+            wf.appendChild(bar);
+        });
+    </script>
+</body>
+</html>

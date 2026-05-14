@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorio — Oscar Coello</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --marigold: #E59D2C;
+            --buff: #F3D58D;
+            --pearl: #EBDDC5;
+            --police-blue: #2E4365;
+            --citrine: #8A3B08;
+            --ink: #1a1208;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--pearl);
+            color: var(--ink);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2.5rem;
+            background: var(--pearl);
+            border-bottom: 2px solid var(--ink);
+        }
+        .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            color: var(--police-blue);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--ink);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--marigold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--marigold); }
+
+        /* Page header */
+        .page-header {
+            padding-top: 72px;
+            border-bottom: 2px solid var(--ink);
+            background: var(--pearl);
+        }
+        .page-header-inner {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: end;
+            padding: 4rem 3rem 2rem;
+            gap: 2rem;
+        }
+        .page-number {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--marigold);
+            padding-bottom: 6px;
+        }
+        .page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--ink);
+            display: inline-block;
+        }
+        .page-desc {
+            padding: 0 3rem 2.5rem;
+            font-size: 0.72rem;
+            line-height: 1.9;
+            color: var(--ink);
+            opacity: 0.6;
+            max-width: 520px;
+        }
+
+        /* Projects grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        .project-card {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(26, 18, 8, 0.2);
+            border-bottom: 1px solid rgba(26, 18, 8, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+        .project-card:nth-child(3n) { border-right: none; }
+        .project-card:hover { background: var(--buff); }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 120px; height: 120px;
+            border: 1.5px solid var(--marigold);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: scale(0.7);
+        }
+        .project-card:hover::before { opacity: 0.4; transform: scale(1); }
+        .project-tag {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--citrine);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .project-tag::before {
+            content: '';
+            width: 20px; height: 1px;
+            background: var(--citrine);
+            display: inline-block;
+        }
+        .project-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            color: var(--police-blue);
+        }
+        .project-desc {
+            font-size: 0.7rem;
+            line-height: 1.8;
+            color: var(--ink);
+            opacity: 0.65;
+        }
+        .project-arrow {
+            display: inline-flex;
+            margin-top: 1.5rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--marigold);
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        footer {
+            background: var(--citrine);
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        .footer-name { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--pearl); }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-links a { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--buff); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-copy { grid-column: 1; font-size: 0.6rem; color: var(--buff); opacity: 0.5; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 1rem; }
+
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .page-title { font-size: 3rem; }
+            .nav-links { display: none; }
+            footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a class="nav-logo" href="index.html">OC</a>
+        <ul class="nav-links">
+            <li><a href="laboratorio.html" class="active">Laboratorio</a></li>
+            <li><a href="creacion.html">Creación</a></li>
+            <li><a href="canvas.html">Canvas</a></li>
+            <li><a href="diario.html">Diario</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <span class="page-number">01 / Laboratorio</span>
+            <h1 class="page-title">
+                Laboratorio
+                <svg viewBox="0 0 320 16" fill="none" height="12" style="display:block;width:100%;margin-top:-4px;">
+                    <path d="M2 8 C40 4, 100 12, 160 7 C220 2, 280 10, 318 7" stroke="#E59D2C" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </h1>
+        </div>
+        <p class="page-desc">Proyectos de ingeniería, electrónica, software e investigación. Cada uno nace de la curiosidad y termina siendo algo tangible.</p>
+    </header>
+
+    <main>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-tag">Electrónica</div>
+                <h3 class="project-name">Sistema de monitoreo IoT</h3>
+                <p class="project-desc">Red de sensores distribuidos para monitoreo ambiental en tiempo real con visualización de datos.</p>
+                <span class="project-arrow">Ver proyecto →</span>
+            </div>
+            <div class="project-card">
+                <div class="project-tag">Software</div>
+                <h3 class="project-name">Automatización de procesos</h3>
+                <p class="project-desc">Pipeline de automatización para optimizar flujos de trabajo industriales con ML integrado.</p>
+                <span class="project-arrow">Ver proyecto →</span>
+            </div>
+            <div class="project-card">
+                <div class="project-tag">Investigación</div>
+                <h3 class="project-name">Análisis de señales</h3>
+                <p class="project-desc">Herramientas de procesamiento y análisis de señales para aplicaciones de ingeniería.</p>
+                <span class="project-arrow">Ver proyecto →</span>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <div class="footer-name">Oscar Coello</div>
+            <div class="footer-copy">© 2025 · oacoello.me</div>
+        </div>
+        <ul class="footer-links">
+            <li><a href="https://oacoello.me">Web</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Spotify</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>

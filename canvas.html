@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas — Oscar Coello</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --marigold: #E59D2C;
+            --buff: #F3D58D;
+            --pearl: #EBDDC5;
+            --police-blue: #2E4365;
+            --citrine: #8A3B08;
+            --ink: #1a1208;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--buff);
+            color: var(--ink);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 2.5rem;
+            background: var(--buff);
+            border-bottom: 2px solid var(--ink);
+        }
+        .nav-logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+            color: var(--police-blue);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--ink);
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 2px;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--marigold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a.active { color: var(--citrine); }
+
+        .page-header {
+            padding-top: 72px;
+            border-bottom: 2px solid var(--ink);
+            background: var(--buff);
+        }
+        .page-header-inner {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: end;
+            padding: 4rem 3rem 2rem;
+            gap: 2rem;
+        }
+        .page-number {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--marigold);
+            padding-bottom: 6px;
+        }
+        .page-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: var(--ink);
+            display: inline-block;
+        }
+        .page-desc {
+            padding: 0 3rem 2.5rem;
+            font-size: 0.72rem;
+            line-height: 1.9;
+            color: var(--ink);
+            opacity: 0.6;
+            max-width: 520px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .gallery-item {
+            aspect-ratio: 1;
+            border-right: 1px solid rgba(26,18,8,0.15);
+            border-bottom: 1px solid rgba(26,18,8,0.15);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-item:nth-child(4n) { border-right: none; }
+        .gallery-item-inner {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover .gallery-item-inner { transform: scale(1.05); }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--police-blue);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .gallery-item:hover .gallery-overlay { opacity: 0.9; }
+        .gallery-overlay-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--pearl);
+            text-align: center;
+            padding: 0 1rem;
+        }
+        .gallery-overlay-tag {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--marigold);
+        }
+        .gb-1 { background: #D4A843; }
+        .gb-2 { background: #2E4365; }
+        .gb-3 { background: #8A3B08; }
+        .gb-4 { background: #EBDDC5; }
+        .gb-wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+            background: #1a1208;
+        }
+
+        footer {
+            background: var(--citrine);
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: end;
+            gap: 2rem;
+            border-top: 2px solid var(--ink);
+        }
+        .footer-name { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--pearl); }
+        .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+        .footer-links a { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--buff); text-decoration: none; opacity: 0.7; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; }
+        .footer-copy { grid-column: 1; font-size: 0.6rem; color: var(--buff); opacity: 0.5; text-transform: uppercase; letter-spacing: 0.15em; margin-top: 1rem; }
+
+        @media (max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gb-wide { grid-column: span 2; }
+            .page-title { font-size: 3rem; }
+            .nav-links { display: none; }
+            footer { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a class="nav-logo" href="index.html">OC</a>
+        <ul class="nav-links">
+            <li><a href="laboratorio.html">Laboratorio</a></li>
+            <li><a href="creacion.html">Creación</a></li>
+            <li><a href="canvas.html" class="active">Canvas</a></li>
+            <li><a href="diario.html">Diario</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div class="page-header-inner">
+            <span class="page-number">03 / Canvas</span>
+            <h1 class="page-title">
+                Canvas
+                <svg viewBox="0 0 180 16" fill="none" height="12" style="display:block;width:100%;margin-top:-4px;">
+                    <path d="M2 9 C30 3, 80 14, 120 8 C150 4, 165 11, 178 8" stroke="#8A3B08" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+            </h1>
+        </div>
+        <p class="page-desc">Diseño visual, identidad de marca y comunicación. El trazo como lenguaje.</p>
+    </header>
+
+    <main>
+        <div class="gallery-grid">
+            <div class="gallery-item gb-1">
+                <div class="gallery-item-inner">
+                    <svg viewBox="0 0 200 200" width="140" fill="none">
+                        <circle cx="100" cy="100" r="70" stroke="#1a1208" stroke-width="1.5" />
+                        <circle cx="100" cy="100" r="90" stroke="#1a1208" stroke-width="0.8" opacity="0.4" />
+                        <path d="M100 30 L100 170 M30 100 L170 100" stroke="#1a1208" stroke-width="1" />
+                        <path d="M55 55 L145 145 M145 55 L55 145" stroke="#1a1208" stroke-width="0.8" opacity="0.5" />
+                        <circle cx="100" cy="100" r="15" fill="#1a1208" opacity="0.8" />
+                    </svg>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-overlay-title">Identidad de marca</div>
+                    <div class="gallery-overlay-tag">Branding</div>
+                </div>
+            </div>
+
+            <div class="gallery-item gb-2">
+                <div class="gallery-item-inner">
+                    <svg viewBox="0 0 200 200" width="140" fill="none">
+                        <rect x="40" y="40" width="120" height="120" stroke="#EBDDC5" stroke-width="1.5" />
+                        <rect x="55" y="55" width="90" height="90" stroke="#E59D2C" stroke-width="1" stroke-dasharray="4 4" />
+                        <rect x="70" y="70" width="60" height="60" stroke="#EBDDC5" stroke-width="1" />
+                        <rect x="85" y="85" width="30" height="30" fill="#E59D2C" opacity="0.6" />
+                    </svg>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-overlay-title">Sistema de diseño UI</div>
+                    <div class="gallery-overlay-tag">Product Design</div>
+                </div>
+            </div>
+
+            <div class="gallery-item gb-3">
+                <div class="gallery-item-inner">
+                    <svg viewBox="0 0 200 200" width="140" fill="none">
+                        <path d="M100 30 L170 140 L30 140Z" stroke="#EBDDC5" stroke-width="1.5" fill="none" />
+                        <path d="M100 50 L155 130 L45 130Z" stroke="#F3D58D" stroke-width="1" fill="none" />
+                        <path d="M100 70 L140 120 L60 120Z" stroke="#EBDDC5" stroke-width="0.8" fill="none" />
+                        <circle cx="100" cy="110" r="8" fill="#E59D2C" opacity="0.7" />
+                    </svg>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-overlay-title">Campaña visual</div>
+                    <div class="gallery-overlay-tag">Marketing</div>
+                </div>
+            </div>
+
+            <div class="gallery-item gb-4">
+                <div class="gallery-item-inner">
+                    <svg viewBox="0 0 200 200" width="140" fill="none">
+                        <path d="M40 160 C60 100, 100 40, 160 40" stroke="#2E4365" stroke-width="2" stroke-linecap="round" />
+                        <path d="M40 140 C70 90, 110 60, 160 60" stroke="#8A3B08" stroke-width="1.5" stroke-linecap="round" />
+                        <path d="M40 120 C75 80, 115 75, 160 80" stroke="#2E4365" stroke-width="1" stroke-linecap="round" opacity="0.6" />
+                        <circle cx="160" cy="40" r="6" fill="#E59D2C" />
+                        <circle cx="160" cy="60" r="4" fill="#8A3B08" />
+                        <circle cx="160" cy="80" r="3" fill="#2E4365" opacity="0.6" />
+                    </svg>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-overlay-title">Data visualization</div>
+                    <div class="gallery-overlay-tag">Diseño de datos</div>
+                </div>
+            </div>
+
+            <div class="gallery-item gb-wide">
+                <div class="gallery-item-inner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+                    <svg viewBox="0 0 500 200" width="400" fill="none">
+                        <path d="M20 100 C60 60, 100 140, 140 80 C180 20, 220 120, 260 90 C300 60, 340 110, 380 70 C410 40, 450 100, 480 80"
+                            stroke="#EBDDC5" stroke-width="2" stroke-linecap="round" />
+                        <path d="M20 120 C60 80, 100 160, 140 100 C180 40, 220 140, 260 110 C300 80, 340 130, 380 90 C410 60, 450 120, 480 100"
+                            stroke="#F3D58D" stroke-width="1" stroke-linecap="round" opacity="0.5" />
+                        <text x="20" y="170" font-family="DM Serif Display,serif" font-size="28" fill="#F3D58D" opacity="0.7">Diseño que comunica.</text>
+                    </svg>
+                </div>
+                <div class="gallery-overlay">
+                    <div class="gallery-overlay-title">Estrategia de comunicación visual</div>
+                    <div class="gallery-overlay-tag">Brand Strategy</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <div class="footer-name">Oscar Coello</div>
+            <div class="footer-copy">© 2025 · oacoello.me</div>
+        </div>
+        <ul class="footer-links">
+            <li><a href="https://oacoello.me">Web</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Spotify</a></li>
+        </ul>
+    </footer>
+
+</body>
+</html>
