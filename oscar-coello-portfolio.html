@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oscar Coello — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marigold: #E59D2C;
+    --buff: #F3D58D;
+    --pearl: #EBDDC5;
+    --police-blue: #2E4365;
+    --citrine: #8A3B08;
+    --ink: #1a1208;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--pearl);
+    color: var(--ink);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.5rem;
+    background: var(--pearl);
+    border-bottom: 2px solid var(--ink);
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: var(--police-blue);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--marigold);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 2px solid var(--ink);
+    padding-top: 72px;
+  }
+
+  .hero-left {
+    padding: 5rem 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 2px solid var(--ink);
+  }
+
+  .hero-name {
+    position: relative;
+  }
+
+  .scribble-name {
+    width: 100%;
+    max-width: 480px;
+    display: block;
+  }
+
+  .hero-tagline {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--citrine);
+    margin-top: 2rem;
+    line-height: 1.8;
+  }
+
+  .hero-description {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: var(--police-blue);
+    max-width: 380px;
+    font-style: italic;
+  }
+
+  .hero-scroll {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    opacity: 0.5;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--ink);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { width: 40px; opacity: 0.5; }
+    50% { width: 70px; opacity: 1; }
+  }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    background: var(--police-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-doodle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.2;
+  }
+
+  .hero-badge {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+  }
+
+  .badge-ring {
+    width: 200px;
+    height: 200px;
+    border: 2px dashed var(--buff);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  .badge-inner {
+    position: absolute;
+    text-align: center;
+    animation: rotateSlow 20s linear infinite reverse;
+  }
+
+  .badge-inner span {
+    display: block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--buff);
+  }
+
+  .badge-inner .big {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem;
+    color: var(--marigold);
+    letter-spacing: 0;
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 3rem;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    z-index: 2;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--marigold);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--buff);
+    opacity: 0.7;
+  }
+
+  @keyframes rotateSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* ── SECTION STYLES ── */
+  section {
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: end;
+    padding: 2.5rem 3rem 1.5rem;
+    gap: 2rem;
+    border-bottom: 1px solid rgba(26,18,8,0.2);
+  }
+
+  .section-number {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--marigold);
+    padding-bottom: 4px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3.5rem;
+    line-height: 1;
+    color: var(--ink);
+    position: relative;
+    display: inline-block;
+  }
+
+  .section-title .underscribble {
+    display: block;
+    width: 100%;
+    margin-top: -4px;
+  }
+
+  /* ── LABORATORIO ── */
+  #laboratorio { background: var(--pearl); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: none;
+  }
+
+  .project-card {
+    padding: 2.5rem 2rem;
+    border-right: 1px solid rgba(26,18,8,0.2);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease;
+    cursor: pointer;
+  }
+
+  .project-card:last-child { border-right: none; }
+
+  .project-card:hover { background: var(--buff); }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border: 1.5px solid var(--marigold);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: scale(0.7);
+  }
+
+  .project-card:hover::before {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+
+  .project-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--citrine);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-tag::before {
+    content: '';
+    width: 20px; height: 1px;
+    background: var(--citrine);
+    display: inline-block;
+  }
+
+  .project-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    color: var(--police-blue);
+  }
+
+  .project-desc {
+    font-size: 0.7rem;
+    line-height: 1.8;
+    color: var(--ink);
+    opacity: 0.65;
+  }
+
+  .project-arrow {
+    display: inline-flex;
+    margin-top: 1.5rem;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--marigold);
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  /* ── CREACIÓN ── */
+  #creacion { background: var(--police-blue); }
+
+  #creacion .section-header { border-bottom-color: rgba(235,221,197,0.2); }
+  #creacion .section-number { color: var(--buff); }
+  #creacion .section-title { color: var(--pearl); }
+
+  .music-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .music-featured {
+    padding: 3rem;
+    border-right: 1px solid rgba(235,221,197,0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .music-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--buff);
+    opacity: 0.6;
+  }
+
+  .music-card {
+    background: rgba(235,221,197,0.06);
+    border: 1px solid rgba(235,221,197,0.15);
+    border-radius: 2px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+
+  .music-card:hover { background: rgba(235,221,197,0.12); }
+
+  .music-cover {
+    width: 64px; height: 64px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(235,221,197,0.25);
+  }
+
+  .music-info { flex: 1; }
+
+  .music-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--pearl);
+    margin-bottom: 0.25rem;
+  }
+
+  .music-meta {
+    font-size: 0.65rem;
+    color: var(--buff);
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .play-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--marigold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--marigold);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .play-btn:hover { background: var(--marigold); color: var(--police-blue); }
+
+  .music-visual {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .waveform {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    height: 80px;
+  }
+
+  .wave-bar {
+    width: 4px;
+    background: var(--marigold);
+    border-radius: 2px;
+    animation: wave 1.4s ease-in-out infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+
+  /* ── CANVAS ── */
+  #canvas-section { background: var(--buff); }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+  }
+
+  .gallery-item {
+    aspect-ratio: 1;
+    border-right: 1px solid rgba(26,18,8,0.15);
+    border-bottom: 1px solid rgba(26,18,8,0.15);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-item:nth-child(3) { border-right: none; }
+  .gallery-item:nth-child(4) { border-right: none; }
+
+  .gallery-item-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-item-inner { transform: scale(1.05); }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--police-blue);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 0.9; }
+
+  .gallery-overlay-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--pearl);
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .gallery-overlay-tag {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--marigold);
+  }
+
+  /* gallery bg patterns */
+  .gb-1 { background: #D4A843; }
+  .gb-2 { background: #2E4365; }
+  .gb-3 { background: #8A3B08; }
+  .gb-4 { background: #EBDDC5; }
+  .gb-wide { grid-column: span 2; aspect-ratio: 2/1; background: #1a1208; }
+
+  /* ── DIARIO ── */
+  #diario { background: var(--pearl); }
+
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-post {
+    display: grid;
+    grid-template-columns: 140px 1fr auto;
+    align-items: start;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    border-bottom: 1px solid rgba(26,18,8,0.15);
+    transition: background 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .blog-post:hover { background: var(--buff); }
+  .blog-post:last-child { border-bottom: none; }
+
+  .blog-date {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--citrine);
+    padding-top: 4px;
+    line-height: 1.6;
+  }
+
+  .blog-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    line-height: 1.3;
+    color: var(--police-blue);
+    margin-bottom: 0.4rem;
+  }
+
+  .blog-excerpt {
+    font-size: 0.7rem;
+    line-height: 1.9;
+    color: var(--ink);
+    opacity: 0.6;
+  }
+
+  .blog-arrow {
+    font-size: 1.2rem;
+    color: var(--marigold);
+    padding-top: 4px;
+    transition: transform 0.2s;
+  }
+
+  .blog-post:hover .blog-arrow { transform: translateX(4px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--citrine);
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 2rem;
+  }
+
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--pearl);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--buff);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .footer-links a:hover { opacity: 1; }
+
+  .footer-copy {
+    grid-column: 1;
+    font-size: 0.6rem;
+    color: var(--buff);
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-top: 1rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-left > * {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-left > *:nth-child(2) { animation-delay: 0.25s; }
+  .hero-left > *:nth-child(3) { animation-delay: 0.4s; }
+  .hero-left > *:nth-child(4) { animation-delay: 0.55s; }
+
+  /* ── SCRIBBLE DECORATIONS ── */
+  .scribble-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.12;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .music-layout { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .gb-wide { grid-column: span 2; }
+    .blog-post { grid-template-columns: 1fr; gap: 0.5rem; }
+    .blog-date { display: none; }
+    .section-title { font-size: 2.5rem; }
+    .nav-links { display: none; }
+    footer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">OC</span>
+  <ul class="nav-links">
+    <li><a href="#laboratorio">Laboratorio</a></li>
+    <li><a href="#creacion">Creación</a></li>
+    <li><a href="#canvas-section">Canvas</a></li>
+    <li><a href="#diario">Diario</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-name">
+      <!-- Scribble Art Name SVG -->
+      <svg class="scribble-name" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- O -->
+        <path d="M12 50 C8 20, 30 8, 54 10 C78 12, 96 28, 94 54 C92 80, 72 98, 48 96 C24 94, 6 80, 10 54" stroke="#2E4365" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <path d="M14 52 C11 24, 32 10, 55 12 C78 14, 94 32, 92 56 C90 78, 70 96, 47 94 C23 92, 8 78, 12 52" stroke="#E59D2C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- s -->
+        <path d="M106 72 C102 58, 108 46, 120 45 C132 44, 138 52, 132 60 C126 68, 112 66, 110 75 C108 84, 116 92, 130 90" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M108 72 C104 59, 110 47, 122 46" stroke="#8A3B08" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <!-- c -->
+        <path d="M154 60 C148 46, 136 40, 128 50" stroke="#2E4365" stroke-width="4" fill="none"/>
+        <path d="M162 56 C154 40, 140 36, 132 44 C122 54, 122 72, 132 80 C140 88, 156 84, 162 72" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M164 58 C156 42, 142 38, 134 46" stroke="#E59D2C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- a -->
+        <path d="M196 44 C184 42, 174 52, 174 64 C174 76, 182 88, 196 88 C210 88, 216 78, 216 66 L216 44 M216 64 C216 76, 218 84, 220 90" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <!-- r -->
+        <path d="M232 90 L232 46 M232 58 C236 50, 244 44, 254 44" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M234 58 C238 51, 246 45, 256 45" stroke="#8A3B08" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+
+        <!-- gap -->
+
+        <!-- C -->
+        <path d="M296 30 C282 20, 264 24, 260 44 C256 64, 268 90, 286 96 C300 100, 312 92, 316 80" stroke="#2E4365" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+        <path d="M298 32 C284 22, 266 26, 262 46 C258 66, 270 92, 288 98" stroke="#E59D2C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- o -->
+        <path d="M336 64 C336 52, 344 42, 356 42 C368 42, 376 52, 376 64 C376 76, 368 86, 356 86 C344 86, 336 76, 336 64Z" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <!-- e -->
+        <path d="M392 62 L424 62 C424 52, 416 42, 404 42 C392 42, 384 52, 384 64 C384 76, 392 86, 404 86 C416 86, 422 80, 424 74" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M392 64 L422 64" stroke="#E59D2C" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- l -->
+        <path d="M438 22 L438 90" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <!-- l -->
+        <path d="M456 22 L456 90" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+        <path d="M458 24 L458 88" stroke="#8A3B08" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- o -->
+        <path d="M470 64 C470 52, 478 42, 490 42 C502 42, 510 52, 510 64 C510 76, 502 86, 490 86 C478 86, 470 76, 470 64Z" stroke="#2E4365" stroke-width="5" stroke-linecap="round" fill="none"/>
+
+        <!-- scribble underline -->
+        <path d="M10 118 C60 112, 120 122, 180 116 C240 110, 300 122, 360 118 C400 115, 440 120, 510 116" stroke="#E59D2C" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M10 124 C80 128, 160 120, 240 126 C320 132, 400 122, 510 126" stroke="#8A3B08" stroke-width="1" stroke-linecap="round" fill="none" opacity="0.5"/>
+
+        <!-- decorative scribble dots -->
+        <circle cx="22" cy="22" r="3" fill="#E59D2C" opacity="0.4"/>
+        <circle cx="470" cy="26" r="4" fill="#8A3B08" opacity="0.3"/>
+        <path d="M260 112 L268 104 M264 112 L260 104" stroke="#E59D2C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <p class="hero-tagline">Ingeniero · Músico · Diseñador</p>
+
+    <p class="hero-description">Construyendo cosas que importan, una línea de código, una nota y un trazo a la vez.</p>
+
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      Scroll para explorar
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Background scribble texture -->
+    <svg class="hero-doodle" viewBox="0 0 600 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 100 C100 60, 200 140, 250 80 C300 20, 400 120, 450 60 C500 0, 580 80, 600 50" stroke="#EBDDC5" stroke-width="1" fill="none"/>
+      <path d="M0 200 C80 160, 160 240, 240 180 C320 120, 400 200, 480 160 C540 130, 600 180, 620 150" stroke="#EBDDC5" stroke-width="1" fill="none"/>
+      <path d="M30 350 C100 300, 200 400, 280 340" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+      <circle cx="150" cy="500" r="60" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+      <circle cx="152" cy="502" r="80" stroke="#EBDDC5" stroke-width="0.5" fill="none"/>
+      <path d="M400 400 L440 360 L480 400 L440 440Z" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+      <path d="M300 600 C350 580, 420 620, 450 590 C480 560, 520 600, 560 570" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+      <path d="M100 700 C130 680, 170 720, 200 690" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+      <path d="M80 80 L90 70 M85 80 L80 70" stroke="#E59D2C" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M500 300 L510 290 M505 300 L500 290" stroke="#F3D58D" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M350 150 C360 130, 380 150, 370 170" stroke="#F3D58D" stroke-width="1" fill="none"/>
+    </svg>
+
+    <div class="hero-badge">
+      <div class="badge-ring">
+        <div class="badge-inner">
+          <span>Ingeniero</span>
+          <span class="big">OC</span>
+          <span>& Creador</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Años de exp.</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">Proyectos</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">4</span>
+        <span class="stat-label">Disciplinas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LABORATORIO -->
+<section id="laboratorio">
+  <div class="section-header">
+    <span class="section-number">01 / Laboratorio</span>
+    <h2 class="section-title">
+      Laboratorio
+      <svg class="underscribble" viewBox="0 0 320 16" fill="none" height="12">
+        <path d="M2 8 C40 4, 100 12, 160 7 C220 2, 280 10, 318 7" stroke="#E59D2C" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-tag">Electrónica</div>
+      <h3 class="project-name">Sistema de monitoreo IoT</h3>
+      <p class="project-desc">Red de sensores distribuidos para monitoreo ambiental en tiempo real con visualización de datos.</p>
+      <span class="project-arrow">Ver proyecto →</span>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">Software</div>
+      <h3 class="project-name">Automatización de procesos</h3>
+      <p class="project-desc">Pipeline de automatización para optimizar flujos de trabajo industriales con ML integrado.</p>
+      <span class="project-arrow">Ver proyecto →</span>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">Investigación</div>
+      <h3 class="project-name">Análisis de señales</h3>
+      <p class="project-desc">Herramientas de procesamiento y análisis de señales para aplicaciones de ingeniería.</p>
+      <span class="project-arrow">Ver proyecto →</span>
+    </div>
+  </div>
+</section>
+
+<!-- CREACIÓN -->
+<section id="creacion">
+  <div class="section-header">
+    <span class="section-number">02 / Creación</span>
+    <h2 class="section-title">
+      Creación
+      <svg class="underscribble" viewBox="0 0 240 16" fill="none" height="12">
+        <path d="M2 10 C40 4, 90 14, 140 8 C190 2, 220 10, 238 7" stroke="#F3D58D" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </h2>
+  </div>
+  <div class="music-layout">
+    <div class="music-featured">
+      <span class="music-label">Proyectos musicales</span>
+
+      <div class="music-card">
+        <div class="music-cover">
+          <svg viewBox="0 0 64 64" width="40" fill="none">
+            <path d="M32 10 C32 10, 44 16, 50 30 C56 44, 44 56, 32 54 C20 52, 12 42, 16 30 C20 18, 32 10, 32 10Z" stroke="#F3D58D" stroke-width="1.5" fill="none"/>
+            <circle cx="32" cy="32" r="6" stroke="#E59D2C" stroke-width="1.5" fill="none"/>
+            <path d="M32 10 L32 26 M32 38 L32 54" stroke="#F3D58D" stroke-width="1" opacity="0.5"/>
+          </svg>
+        </div>
+        <div class="music-info">
+          <div class="music-title">EP Original</div>
+          <div class="music-meta">Producción independiente · 2024</div>
+        </div>
+        <div class="play-btn">▶</div>
+      </div>
+
+      <div class="music-card">
+        <div class="music-cover">
+          <svg viewBox="0 0 64 64" width="40" fill="none">
+            <rect x="16" y="16" width="32" height="32" rx="2" stroke="#F3D58D" stroke-width="1.5" fill="none"/>
+            <path d="M24 32 L30 26 L36 32 L30 38Z" stroke="#E59D2C" stroke-width="1.5" fill="none"/>
+          </svg>
+        </div>
+        <div class="music-info">
+          <div class="music-title">Ambient Sessions</div>
+          <div class="music-meta">Experimental · Ongoing</div>
+        </div>
+        <div class="play-btn">▶</div>
+      </div>
+
+      <div class="music-card">
+        <div class="music-cover">
+          <svg viewBox="0 0 64 64" width="40" fill="none">
+            <path d="M20 48 L20 24 M28 48 L28 18 M36 48 L36 28 M44 48 L44 22" stroke="#E59D2C" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="music-info">
+          <div class="music-title">Beats & Loops</div>
+          <div class="music-meta">Producción · Colección</div>
+        </div>
+        <div class="play-btn">▶</div>
+      </div>
+    </div>
+
+    <div class="music-visual">
+      <div class="waveform">
+        <div class="wave-bar" style="height:30%;animation-delay:0s"></div>
+        <div class="wave-bar" style="height:60%;animation-delay:0.1s"></div>
+        <div class="wave-bar" style="height:80%;animation-delay:0.2s"></div>
+        <div class="wave-bar" style="height:100%;animation-delay:0.3s"></div>
+        <div class="wave-bar" style="height:70%;animation-delay:0.4s"></div>
+        <div class="wave-bar" style="height:90%;animation-delay:0.5s"></div>
+        <div class="wave-bar" style="height:50%;animation-delay:0.6s"></div>
+        <div class="wave-bar" style="height:75%;animation-delay:0.7s"></div>
+        <div class="wave-bar" style="height:40%;animation-delay:0.8s"></div>
+        <div class="wave-bar" style="height:85%;animation-delay:0.9s"></div>
+        <div class="wave-bar" style="height:60%;animation-delay:1s"></div>
+        <div class="wave-bar" style="height:35%;animation-delay:1.1s"></div>
+        <div class="wave-bar" style="height:95%;animation-delay:1.2s"></div>
+        <div class="wave-bar" style="height:55%;animation-delay:1.3s"></div>
+        <div class="wave-bar" style="height:70%;animation-delay:1.4s"></div>
+      </div>
+      <p style="font-size:0.65rem; text-transform:uppercase; letter-spacing:0.2em; color:var(--buff); opacity:0.5; margin-top:2rem; text-align:center;">Música generada desde la ingeniería</p>
+
+      <!-- Scribble notation -->
+      <svg viewBox="0 0 280 80" fill="none" width="280" style="margin-top:2rem;opacity:0.25">
+        <line x1="10" y1="20" x2="270" y2="20" stroke="#F3D58D" stroke-width="0.8"/>
+        <line x1="10" y1="35" x2="270" y2="35" stroke="#F3D58D" stroke-width="0.8"/>
+        <line x1="10" y1="50" x2="270" y2="50" stroke="#F3D58D" stroke-width="0.8"/>
+        <line x1="10" y1="65" x2="270" y2="65" stroke="#F3D58D" stroke-width="0.8"/>
+        <ellipse cx="50" cy="50" rx="7" ry="5" fill="#F3D58D"/>
+        <line x1="57" y1="50" x2="57" y2="20" stroke="#F3D58D" stroke-width="1"/>
+        <ellipse cx="90" cy="35" rx="7" ry="5" fill="#F3D58D"/>
+        <line x1="97" y1="35" x2="97" y2="8" stroke="#F3D58D" stroke-width="1"/>
+        <ellipse cx="130" cy="65" rx="7" ry="5" fill="#F3D58D"/>
+        <line x1="137" y1="65" x2="137" y2="35" stroke="#F3D58D" stroke-width="1"/>
+        <ellipse cx="170" cy="20" rx="7" ry="5" fill="#F3D58D"/>
+        <line x1="177" y1="20" x2="177" y2="-8" stroke="#F3D58D" stroke-width="1"/>
+        <ellipse cx="210" cy="50" rx="7" ry="5" fill="#F3D58D"/>
+        <line x1="217" y1="50" x2="217" y2="20" stroke="#F3D58D" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CANVAS -->
+<section id="canvas-section">
+  <div class="section-header">
+    <span class="section-number">03 / Canvas</span>
+    <h2 class="section-title">
+      Canvas
+      <svg class="underscribble" viewBox="0 0 180 16" fill="none" height="12">
+        <path d="M2 9 C30 3, 80 14, 120 8 C150 4, 165 11, 178 8" stroke="#8A3B08" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gb-1">
+      <div class="gallery-item-inner">
+        <svg viewBox="0 0 200 200" width="140" fill="none">
+          <circle cx="100" cy="100" r="70" stroke="#1a1208" stroke-width="1.5"/>
+          <circle cx="100" cy="100" r="90" stroke="#1a1208" stroke-width="0.8" opacity="0.4"/>
+          <path d="M100 30 L100 170 M30 100 L170 100" stroke="#1a1208" stroke-width="1"/>
+          <path d="M55 55 L145 145 M145 55 L55 145" stroke="#1a1208" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="100" cy="100" r="15" fill="#1a1208" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">Identidad de marca</div>
+        <div class="gallery-overlay-tag">Branding</div>
+      </div>
+    </div>
+
+    <div class="gallery-item gb-2">
+      <div class="gallery-item-inner">
+        <svg viewBox="0 0 200 200" width="140" fill="none">
+          <rect x="40" y="40" width="120" height="120" stroke="#EBDDC5" stroke-width="1.5"/>
+          <rect x="55" y="55" width="90" height="90" stroke="#E59D2C" stroke-width="1" stroke-dasharray="4 4"/>
+          <rect x="70" y="70" width="60" height="60" stroke="#EBDDC5" stroke-width="1"/>
+          <rect x="85" y="85" width="30" height="30" fill="#E59D2C" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">Sistema de diseño UI</div>
+        <div class="gallery-overlay-tag">Product Design</div>
+      </div>
+    </div>
+
+    <div class="gallery-item gb-3">
+      <div class="gallery-item-inner">
+        <svg viewBox="0 0 200 200" width="140" fill="none">
+          <path d="M100 30 L170 140 L30 140Z" stroke="#EBDDC5" stroke-width="1.5" fill="none"/>
+          <path d="M100 50 L155 130 L45 130Z" stroke="#F3D58D" stroke-width="1" fill="none"/>
+          <path d="M100 70 L140 120 L60 120Z" stroke="#EBDDC5" stroke-width="0.8" fill="none"/>
+          <circle cx="100" cy="110" r="8" fill="#E59D2C" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">Campaña visual</div>
+        <div class="gallery-overlay-tag">Marketing</div>
+      </div>
+    </div>
+
+    <div class="gallery-item gb-4">
+      <div class="gallery-item-inner">
+        <svg viewBox="0 0 200 200" width="140" fill="none">
+          <path d="M40 160 C60 100, 100 40, 160 40" stroke="#2E4365" stroke-width="2" stroke-linecap="round"/>
+          <path d="M40 140 C70 90, 110 60, 160 60" stroke="#8A3B08" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M40 120 C75 80, 115 75, 160 80" stroke="#2E4365" stroke-width="1" stroke-linecap="round" opacity="0.6"/>
+          <circle cx="160" cy="40" r="6" fill="#E59D2C"/>
+          <circle cx="160" cy="60" r="4" fill="#8A3B08"/>
+          <circle cx="160" cy="80" r="3" fill="#2E4365" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">Data visualization</div>
+        <div class="gallery-overlay-tag">Diseño de datos</div>
+      </div>
+    </div>
+
+    <div class="gallery-item gb-wide">
+      <div class="gallery-item-inner" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 500 200" width="400" fill="none">
+          <path d="M20 100 C60 60, 100 140, 140 80 C180 20, 220 120, 260 90 C300 60, 340 110, 380 70 C410 40, 450 100, 480 80" stroke="#EBDDC5" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 120 C60 80, 100 160, 140 100 C180 40, 220 140, 260 110 C300 80, 340 130, 380 90 C410 60, 450 120, 480 100" stroke="#F3D58D" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+          <text x="20" y="170" font-family="DM Serif Display,serif" font-size="28" fill="#F3D58D" opacity="0.7">Diseño que comunica.</text>
+        </svg>
+      </div>
+      <div class="gallery-overlay">
+        <div class="gallery-overlay-title">Estrategia de comunicación visual</div>
+        <div class="gallery-overlay-tag">Brand Strategy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIARIO -->
+<section id="diario">
+  <div class="section-header">
+    <span class="section-number">04 / Diario</span>
+    <h2 class="section-title">
+      Diario
+      <svg class="underscribble" viewBox="0 0 180 16" fill="none" height="12">
+        <path d="M2 11 C40 5, 90 14, 140 9 C160 6, 170 11, 178 9" stroke="#2E4365" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </h2>
+  </div>
+  <div class="blog-list">
+    <a class="blog-post" href="#">
+      <div class="blog-date">Mayo 2025<br/>Nota #03</div>
+      <div>
+        <div class="blog-title">Cuando la ingeniería se vuelve arte</div>
+        <div class="blog-excerpt">Reflexiones sobre el punto de encuentro entre los sistemas técnicos y la expresión creativa.</div>
+      </div>
+      <div class="blog-arrow">→</div>
+    </a>
+    <a class="blog-post" href="#">
+      <div class="blog-date">Abril 2025<br/>Nota #02</div>
+      <div>
+        <div class="blog-title">Aprendizajes del primer EP independiente</div>
+        <div class="blog-excerpt">Todo lo que nadie te cuenta sobre producir música desde cero, con recursos limitados y mucha curiosidad.</div>
+      </div>
+      <div class="blog-arrow">→</div>
+    </a>
+    <a class="blog-post" href="#">
+      <div class="blog-date">Marzo 2025<br/>Nota #01</div>
+      <div>
+        <div class="blog-title">Por qué construyo cosas que nadie pidió</div>
+        <div class="blog-excerpt">Un manifiesto breve sobre proyectos personales, motivación intrínseca y el valor del proceso.</div>
+      </div>
+      <div class="blog-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Oscar Coello</div>
+    <div class="footer-copy">© 2025 · oacoello.me</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="https://oacoello.me">Web</a></li>
+    <li><a href="#">LinkedIn</a></li>
+    <li><a href="#">GitHub</a></li>
+    <li><a href="#">Spotify</a></li>
+  </ul>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  const waveBars = document.querySelectorAll('.wave-bar');
+  waveBars.forEach((bar, i) => {
+    bar.style.animationDelay = `${i * 0.1}s`;
+    bar.style.animationDuration = `${1.2 + Math.random() * 0.8}s`;
+  });
+</script>
+</body>
+</html>
