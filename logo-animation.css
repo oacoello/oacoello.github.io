@@ -1,0 +1,59 @@
+/* Importación de fuentes específicas para la animación */
+@import url('https://fonts.googleapis.com/css2?family=Supermercado+One&family=Inconsolata:wght@700&family=Josefin+Sans:wght@300;700&display=swap');
+
+/* Contenedor Principal en el Hero */
+.hero-name {
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+#name-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+    perspective: 1000px;
+}
+
+/* Estilo base de cada letra */
+.letter {
+    display: inline-block;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    user-select: none;
+    padding: 0 0.05rem;
+}
+
+/* Espacio entre palabras */
+.space {
+    width: 1.5rem;
+    display: inline-block;
+}
+
+/* Variaciones Dinámicas de Estilo */
+.style-0 { font-family: 'Supermercado One', cursive; color: var(--police-blue); }
+.style-1 { font-family: 'Supermercado One', cursive; color: var(--marigold); transform: rotate(-3deg); }
+.style-2 { font-family: 'Inconsolata', monospace; color: var(--police-blue); font-weight: 700; }
+.style-3 { font-family: 'Inconsolata', monospace; color: var(--marigold); letter-spacing: 2px; }
+.style-4 { font-family: 'Josefin Sans', sans-serif; color: var(--police-blue); font-weight: 300; text-transform: lowercase; }
+.style-5 { font-family: 'Josefin Sans', sans-serif; color: var(--marigold); font-weight: 700; text-transform: uppercase; }
+
+/* Texto de ayuda/controles */
+.controls {
+    margin-top: 1rem;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--police-blue);
+    opacity: 0.4;
+    font-family: 'Space Mono', monospace;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 768px) {
+    #name-container { justify-content: flex-start; }
+    .letter { font-size: 3rem; }
+}
